@@ -152,3 +152,7 @@ def gen_sin(freq, vpp):
 
 
 get_display('test')
+
+if __name__ == '__main__':
+    get_data2(50, 0, 'DC', 1)
+    get_data2(80, 0, 'DC', 1)

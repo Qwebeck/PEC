@@ -30,11 +30,16 @@ def analyse(*test_names, describe_data=None):
     plt.xlabel('t')
     plt.ylabel('V')
     for test_name in test_names:
-        raw_data = read_raw_data(test_name)
-        data = trasnform_to_data(raw_data, test_name)
-        if describe_data:
-            describe_data(data, test_name)
-        display_data(data, test_name)
+        try:
+            raw_data = read_raw_data(test_name)
+            data = trasnform_to_data(raw_data, test_name)
+        except FileNotFoundError:
+            print(f"Data for test {test_name} was not found")
+            continue
+        else:
+            if describe_data:
+                describe_data(data, test_name)
+            display_data(data, test_name)
     plt.legend()
     plt.show()
 
@@ -158,7 +163,9 @@ def run(task_code):
     default_callback = partial(
         print, f'Task code {task_code} is not a valid task code')
     {
+        'zad_1': partial(analyse, 'SQ_DC_0V_50%', 'SQ_AC_0V_50%', describe_data=describe_voltage_flow),
         'zad_2': partial(analyse, 'SQ_DC_0V_20%', 'SQ_AC_0V_20%', describe_data=describe_voltage_flow),
+        'zad_3': partial(analyse, 'SQ_DC_0V_80%', 'SQ_AC_0V_80%', describe_data=describe_voltage_flow),
         'zad_5': partial(analyse, 'Z5', describe_data=describe_rise_time)
     }.setdefault(task_code, default_callback)()
 
