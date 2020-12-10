@@ -1,13 +1,16 @@
 from machine import Pin
 
-scl = Pin(5, Pin.OUT)
-sda = Pin(4, Pin.OPEN_DRAIN)
+def start():
+    scl = Pin(5, Pin.OUT)
+    sda = Pin(4, Pin.OPEN_DRAIN)
+    return scl, sda
 
-addr = [1,0,0,1,1,1,1]
-mode = 1
-p0 = Pin(2, Pin.IN)
-for bit in p0:
-    sda(bit)
+def shift(sda):
+    addr = [1,0,0,1,1,1,1]
+    mode = 1
+    for bit in addr:
+        sda(bit)
+    sda(mode)
 
-ack = scl()
-print(ack)
+def stop(scl):
+    return scl()
