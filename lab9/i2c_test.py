@@ -21,17 +21,20 @@ def shift_out(x):
 		x <<= 1
 		scl.value(1)
 		scl.value(0)
-	sda.value(1)
-	scl.value(1)
-	ack=sda.value()
-	scl.value(0)
 	return ack	
 
 
+def test():
+    sda.value(1)
+    scl.value(1)
+    ack=sda.value()
+    scl.value(0)
+    return ack
+
 def scan():
     addr = []
-    for i in range(256):
-        if shift_out(i):
+    for i in range(8,120):
+        if test(i):
             addr.append(hex(i))
     return addr
     
