@@ -1,0 +1,5 @@
+1. Jak odczytać dane z ADC0? 
+2. Dlaczego my mamy 8 wejść adresowych, jeżeli mamy 14 inputów (ESP8266)?
+-----------------------------
+
+1. W jaki sposób my możemy zmierzyć częstotliwość?
