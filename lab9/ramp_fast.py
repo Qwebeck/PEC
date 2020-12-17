@@ -6,6 +6,7 @@ from machine import Pin, I2C
 i2c = I2C(scl=Pin(5), sda=Pin(4), freq=400000)
 addr = 0x48
 
+times = []
 def ramp():
 	i2c.start()
 	i2c.writeto(addr, b'\x40', 0) #D/A enable
@@ -19,10 +20,14 @@ def ramp():
 
 # http://docs.micropython.org/en/latest/library/machine.I2C.html#machine-i2c
 def adc(): 
+	import time
+	global times
 	while(1): 
+		start = time.time()
 		x = i2c.readfrom(addr, 1, 0) 
+		time = time.time() - start
+		times.append(time)
 		print(x[0])
-
 
 
 
