@@ -27,6 +27,15 @@ def shift_out(x):
 	scl.value(0)
 	return ack	
 
+
+def scan():
+    addr = []
+    for i in range(256):
+        if shift_out(i):
+            addr.append(hex(i))
+    return addr
+    
+
 #test address 1
 start()
 ack = shift_out((addr_1)<<1)
@@ -36,3 +45,6 @@ print ('ack:', ack)
 start()
 ack = shift_out((addr_2)<<1)
 print ('ack:', ack)
+
+
+print(scan())
